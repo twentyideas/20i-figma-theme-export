@@ -1,0 +1,18 @@
+<h2>Style export</h2>
+<textarea id="content" style="width: 500; height: 500"></textarea>
+<button id="generate">Generate Styles</button>
+<button id="cancel">Cancel</button>
+<script>
+    onmessage = (event) => {
+        console.log("got this from the plugin code", event.data.pluginMessage)
+        const textbox = window.document.getElementById("content")
+        textbox.innerHTML = event.data.pluginMessage
+    }
+    document.getElementById("generate").onclick = () => {
+        parent.postMessage({ pluginMessage: { type: "styles" } }, "*")
+    }
+
+    document.getElementById("cancel").onclick = () => {
+        parent.postMessage({ pluginMessage: { type: "cancel" } }, "*")
+    }
+</script>
