@@ -9,6 +9,7 @@ Run this plugin to generate a json theme to consume in a css-in-js like [Styled 
     -   [ ]: Stable naming convention
 -   [ ]: Generate Typography
 -   [ ]: Make config to more flexibly generate a theme object
+-   [ ]: Fix tsconfig to use regular file structure, not this only `code.ts` business...
 
 ## Usage
 
