@@ -4,7 +4,7 @@
 <button id="cancel">Cancel</button>
 <script>
     onmessage = (event) => {
-        console.log("got this from the plugin code", event.data.pluginMessage)
+        // console.log("got this from the plugin code", event.data.pluginMessage)
         const textbox = window.document.getElementById("content")
         textbox.innerHTML = event.data.pluginMessage
     }
