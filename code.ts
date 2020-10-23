@@ -96,20 +96,22 @@ interface Typography {
     fontSizeMin: number
     lineHeightMax?: number
     lineHeightMin?: number
-    elementType: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p"
+    elementType: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "button"
 }
 interface TypographyData {
     [x: string]: Typography
 }
 const getTypographyCSS = () => {
-    const textStyles = figma.getLocalTextStyles() // name: "Tablet / Heading 2"
+    const textStyles = figma.getLocalTextStyles() // name: "Tablet / Header 2"
     const data = textStyles.reduce((all: TypographyData, curr) => {
-        //font-size: min(max(1rem, 4vw), 22px);
-        const name = curr.name.split("/")[1].replaceAll(" ", "")
+        let name = curr.name.split("/")[1].replaceAll(" ", "")
         let elementType
         if (name.includes("Header")) {
             const headingNum = name.slice(-1)[0]
             elementType = "h" + headingNum
+        } else if (name.includes("Button")) {
+            name = name + "Typography"
+            elementType = "button"
         } else {
             elementType = "p"
         }
@@ -143,18 +145,20 @@ const getTypographyCSS = () => {
         max: 1920,
     }
     const convertToRem = (px: number) => `${px / 16}rem`
+    const makeMagicNumber = (min: number, max: number) => {
+        const fontDiff = max - min
+        const magicNumber = `calc(${convertToRem(min)} + ${fontDiff} * ((100vw - ${breakpoints.min}px) / (${breakpoints.max} - ${breakpoints.min})))`
+        return magicNumber
+    }
     const styledComponents = Object.entries(data)
         .map(([name, component]) => {
-            const fontDiff = component.fontSizeMax - component.fontSizeMin
-            const magicNumber = `calc(${convertToRem(component.fontSizeMin)} + ${fontDiff} * ((100vw - ${breakpoints.min}px) / (${breakpoints.max} - ${
-                breakpoints.min
-            })))`
-
+            const magicFontSize = makeMagicNumber(component.fontSizeMin, component.fontSizeMax)
+            const magicLineHeight = makeMagicNumber(component.lineHeightMin, component.lineHeightMax)
             return `export const ${name} = styled.${component.elementType}\`
                 font-family: "${component.fontFamily}", Arial, Helvetica, sans-serif;
                 font-weight: ${component.fontWeight};
-                font-size: min(max(${convertToRem(component.fontSizeMin)}, ${magicNumber}), ${convertToRem(component.fontSizeMax)});
-                line-height: min(max(${convertToRem(component.lineHeightMin)}, 8vw), ${convertToRem(component.lineHeightMax)});
+                font-size: min(max(${convertToRem(component.fontSizeMin)}, ${magicFontSize}), ${convertToRem(component.fontSizeMax)});
+                line-height: min(max(${convertToRem(component.lineHeightMin)}, ${magicLineHeight}), ${convertToRem(component.lineHeightMax)});
                 \`
                 `
         })
