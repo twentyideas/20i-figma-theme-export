@@ -20,7 +20,7 @@ Run this plugin to generate a json theme to consume in a css-in-js like [Styled 
     ```
 
 1. Add to figma: `Plugins -> New Plugin -> Choose a manifest.json file`. Select the `manifest.json` in this directory
-1. Right click any where in a figma file for a menu
+1. Right click any where in a figma file for a properties menu
 1. `Plugins -> Development -> 20i-figma-theme-export`
 
 ## Development
