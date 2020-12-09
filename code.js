@@ -100,26 +100,41 @@ const getTypographyCSS = () => {
     }, {});
     const breakpoints = {
         min: 640,
-        max: 1920,
+        max: 1440,
     };
-    const convertToRem = (px) => `${px / 16}rem`;
-    const makeMagicNumber = (min, max) => {
-        const fontDiff = max - min;
-        const magicNumber = `calc(${convertToRem(min)} + ${fontDiff} * ((100vw - ${breakpoints.min}px) / (${breakpoints.max} - ${breakpoints.min})))`;
+    const convertToRem = (pxVar) => `calc(var(${pxVar}) / 16 * 1rem)`;
+    const makeMagicNumber = (elementType, type) => {
+        const fontDiff = `var(--${elementType}${type}Max) - var(--${elementType}${type}Min)`;
+        const magicNumber = `var(--${elementType}${type}Min) / 16 * 1rem + (${fontDiff}) * ((100vw - var(--breakpoint-min) * 1px) / (var(--breakpoint-max) - var(--breakpoint-min)))`;
         return magicNumber;
     };
     const styledComponents = Object.entries(data)
         .map(([name, component]) => {
-        const magicFontSize = makeMagicNumber(component.fontSizeMin, component.fontSizeMax);
-        const magicLineHeight = makeMagicNumber(component.lineHeightMin, component.lineHeightMax);
+        const fontSizeMaxVar = `--${name}FontSizeMax`;
+        const fontSizeMinVar = `--${name}FontSizeMin`;
+        const lineHeightMinVar = `--${name}LineHeightMin`;
+        const lineHeightMaxVar = `--${name}LineHeightMax`;
+        const magicFontSize = makeMagicNumber(name, "FontSize");
+        const magicLineHeight = makeMagicNumber(name, "LineHeight");
         return `export const ${name} = styled.${component.elementType}\`
+                ${fontSizeMinVar}: ${component.fontSizeMin};
+                ${fontSizeMaxVar}: ${component.fontSizeMax};
+                ${lineHeightMinVar}: ${component.lineHeightMin};
+                ${lineHeightMaxVar}: ${component.lineHeightMax};
                 font-family: "${component.fontFamily}", Arial, Helvetica, sans-serif;
                 font-weight: ${component.fontWeight};
-                font-size: min(max(${convertToRem(component.fontSizeMin)}, ${magicFontSize}), ${convertToRem(component.fontSizeMax)});
-                line-height: min(max(${convertToRem(component.lineHeightMin)}, ${magicLineHeight}), ${convertToRem(component.lineHeightMax)});
+                font-size: min(max(${convertToRem(fontSizeMinVar)}, ${magicFontSize}), ${convertToRem(fontSizeMaxVar)});
+                line-height: min(max(${convertToRem(lineHeightMinVar)}, ${magicLineHeight}), ${convertToRem(lineHeightMaxVar)});
                 \`
                 `;
     })
         .join("\n");
-    return styledComponents;
+    const rootVars = `
+  :root {
+      --breakpoint-min: ${breakpoints.min};
+      --breakpoint-max: ${breakpoints.max};
+    }
+    `;
+    const response = styledComponents.concat(rootVars);
+    return response;
 };
