@@ -1,7 +1,1 @@
-{
-    "name": "20i-figma-theme-export",
-    "id": "897958027250046219",
-    "api": "1.0.0",
-    "main": "code.js",
-    "ui": "ui.html"
-}
+{"api":"1.0.0","editorType":["figma"],"id":"figma-export","name":"Export to MUI","main":"build/main.js","ui":"build/ui.js"}
