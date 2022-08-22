@@ -12,20 +12,23 @@ export const toUnitString = (value: LetterSpacing | LineHeight) => {
     // default:
     //   throw new Error(`Unsupported unit: ${value.unit}`)
   }
-  throw new Error(`Unsupported unit: ${value.unit}`)
 }
 
 export const toFontWeight = (fontWeight: string) => {
-  switch (fontWeight.toLowerCase()) {
-    case "regular":
-      return 400
-    case "semibold":
-      return 600
-    case "bold":
-      return 700
-    default:
-      throw new Error(`Unsupported font weight: ${fontWeight}`)
+  const lowerFontWeight = fontWeight.toLowerCase()
+  const supportedFontWeights = {
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
   }
+
+  if (!(lowerFontWeight in supportedFontWeights)) {
+    throw new Error(`Unsupported font weight: ${fontWeight}`)
+  }
+
+  return (supportedFontWeights as Record<string, number>)[lowerFontWeight]
 }
 
 export const cleanName = (name: string) => {
