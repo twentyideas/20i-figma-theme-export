@@ -6,7 +6,9 @@
     "preact": "^10",
     "prettier": "^2.6.2",
     "prismjs": "^1.25.0",
+    "react": "^18.2.0",
     "react-simple-code-editor": "^0.11.0",
+    "typescript": "^4.7.4",
     "use-copy": "^0.0.2"
   },
   "devDependencies": {
@@ -14,7 +16,8 @@
     "@create-figma-plugin/tsconfig": "^1.9.2",
     "@figma/plugin-typings": "1.45.0",
     "@types/prettier": "^2.4.4",
-    "@types/prismjs": "^1.16.6"
+    "@types/prismjs": "^1.16.6",
+    "@types/react": "^18.0.17"
   },
   "scripts": {
     "build": "build-figma-plugin --typecheck --minify",
