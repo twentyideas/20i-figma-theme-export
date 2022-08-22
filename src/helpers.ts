@@ -1,8 +1,16 @@
 import { MuiTextStyle } from "./types"
 
 export const toUnitString = (value: LetterSpacing | LineHeight) => {
-  if (value.unit === "PIXELS") {
-    return `${value.value.toFixed(2)}px`
+  switch (value.unit) {
+    case "PERCENT":
+    case "PIXELS":
+      return `${value.value.toFixed(2)}${"PIXELS" === value.unit ? "px" : "%"}`
+
+    case "AUTO":
+      return "auto"
+
+    // default:
+    //   throw new Error(`Unsupported unit: ${value.unit}`)
   }
   throw new Error(`Unsupported unit: ${value.unit}`)
 }
