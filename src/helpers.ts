@@ -40,7 +40,7 @@ export const toFontWeight = (fontStyle: string) => {
 }
 
 export const toFontStyle = (fontStyle: string) =>
-  fontStyle.includes("italic") ? "italic" : "normal"
+  fontStyle.includes("Italic") ? "italic" : "normal"
 
 export const cleanName = (name: string) => {
   return (
