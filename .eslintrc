@@ -1,0 +1,12 @@
+{
+  "extends": ["@20i/eslint-config/react"],
+  "settings": {
+    "react": {
+      "version": "17"
+    }
+  },
+  "parserOptions": {
+    "project": ["./tsconfig.eslint.json"]
+  },
+  "ignorePatterns": []
+}
