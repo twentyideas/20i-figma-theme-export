@@ -25,11 +25,14 @@ export const toFontWeight = (fontStyle: string) => {
       .trim() || "regular"
 
   const supportedFontWeights = {
+    thin: 100,
+    "extra light": 200,
     light: 300,
     regular: 400,
     medium: 500,
     semibold: 600,
     bold: 700,
+    "extra bold": 800,
   }
 
   if (!(cleanFontWeight in supportedFontWeights)) {
