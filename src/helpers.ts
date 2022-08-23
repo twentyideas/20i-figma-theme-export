@@ -14,8 +14,16 @@ export const toUnitString = (value: LetterSpacing | LineHeight) => {
   }
 }
 
-export const toFontWeight = (fontWeight: string) => {
-  const lowerFontWeight = fontWeight.toLowerCase()
+export const toFontWeight = (fontStyle: string) => {
+  const cleanFontWeight =
+    fontStyle
+      // enforces lower case
+      .toLowerCase()
+      // removes italic and uses "regular" as a fallback
+      // for italic only styles
+      .replace("italic", "")
+      .trim() || "regular"
+
   const supportedFontWeights = {
     light: 300,
     regular: 400,
@@ -24,12 +32,15 @@ export const toFontWeight = (fontWeight: string) => {
     bold: 700,
   }
 
-  if (!(lowerFontWeight in supportedFontWeights)) {
-    throw new Error(`Unsupported font weight: ${fontWeight}`)
+  if (!(cleanFontWeight in supportedFontWeights)) {
+    throw new Error(`Unsupported font weight: ${fontStyle}`)
   }
 
-  return (supportedFontWeights as Record<string, number>)[lowerFontWeight]
+  return (supportedFontWeights as Record<string, number>)[cleanFontWeight]
 }
+
+export const toFontStyle = (fontStyle: string) =>
+  fontStyle.includes("italic") ? "italic" : "normal"
 
 export const cleanName = (name: string) => {
   return (
@@ -52,6 +63,7 @@ export const createTypography = () =>
         letterSpacing: toUnitString(curr.letterSpacing),
         lineHeight: toUnitString(curr.lineHeight),
         fontWeight: toFontWeight(curr.fontName.style),
+        fontStyle: toFontStyle(curr.fontName.style),
       }
       return all
     }, {})

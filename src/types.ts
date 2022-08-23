@@ -21,4 +21,5 @@ export interface MuiTextStyle {
   lineHeight: string
   letterSpacing: string
   fontWeight: number
+  fontStyle: "normal" | "italic"
 }
