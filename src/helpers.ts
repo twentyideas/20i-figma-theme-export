@@ -8,9 +8,6 @@ export const toUnitString = (value: LetterSpacing | LineHeight) => {
 
     case "AUTO":
       return "auto"
-
-    // default:
-    //   throw new Error(`Unsupported unit: ${value.unit}`)
   }
 }
 
