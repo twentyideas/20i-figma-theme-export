@@ -15,12 +15,12 @@ export default function () {
     declare module "@mui/material/styles" {
       interface TypographyVariants {
         ${Object.keys(textStyles)
-          .map(key => `${key}: React.CSSProperties`)
+          .map((key) => `${key}: React.CSSProperties`)
           .join("\n")}
       }
       interface TypographyVariantOptions {
         ${Object.keys(textStyles)
-          .map(key => `${key}: React.CSSProperties`)
+          .map((key) => `${key}: React.CSSProperties`)
           .join("\n")}
       }
     }
@@ -28,7 +28,7 @@ export default function () {
     declare module "@mui/material/Typography" {
       interface TypographyPropsVariantOverrides {
         ${Object.keys(textStyles)
-          .map(key => `${key}: true`)
+          .map((key) => `${key}: true`)
           .join("\n")}
       }
     }
