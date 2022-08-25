@@ -4,6 +4,16 @@
 
 *This plugin is built with [Create Figma Plugin](https://yuanqing.github.io/create-figma-plugin/).*
 
+### About
+This is a figma plugin intended to export text and color styles in a format compatible with Material UI. 
+It seeks to bridge the gap between product design in figma and application in code with MUI by directly transfering styles from between them.
+The plugin functions by opening a gui panel with options for generating and distributing typescript code objects with the necessary styling. 
+This includes color pallete objects as well as style and style type objets. 
+The primary object for accessible use in code is `figmaTypography` which contains text styling attributes including font options and spacing.
+The other typography based objects ensure type checking on styling and conformity with `CSSProperties` as well as dictating typography to be included in MUI variants. 
+
+`figmaPalette` holds the coloring properties exported from the figma doc in rgba format along with their associated label. 
+
 ### Pre-requisites
 
 - [Node.js](https://nodejs.org) – v14
