@@ -1,24 +1,46 @@
 import { MuiTextStyle } from "./types"
 
 export const toUnitString = (value: LetterSpacing | LineHeight) => {
-  if (value.unit === "PIXELS") {
-    return `${value.value.toFixed(2)}px`
+  switch (value.unit) {
+    case "PERCENT":
+    case "PIXELS":
+      return `${value.value.toFixed(2)}${"PIXELS" === value.unit ? "px" : "%"}`
+
+    case "AUTO":
+      return "auto"
   }
-  throw new Error(`Unsupported unit: ${value.unit}`)
 }
 
-export const toFontWeight = (fontWeight: string) => {
-  switch (fontWeight.toLowerCase()) {
-    case "regular":
-      return 400
-    case "semibold":
-      return 600
-    case "bold":
-      return 700
-    default:
-      throw new Error(`Unsupported font weight: ${fontWeight}`)
+export const toFontWeight = (fontStyle: string) => {
+  const cleanFontWeight =
+    fontStyle
+      // enforces lower case
+      .toLowerCase()
+      // removes italic and uses "regular" as a fallback
+      // for italic only styles
+      .replace("italic", "")
+      .trim() || "regular"
+
+  const supportedFontWeights: Record<string, number> = {
+    thin: 100,
+    "extra light": 200,
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+    "extra bold": 800,
   }
+
+  if (!(cleanFontWeight in supportedFontWeights)) {
+    throw new Error(`Unsupported font weight: ${fontStyle}`)
+  }
+
+  return supportedFontWeights[cleanFontWeight]
 }
+
+export const toFontStyle = (fontStyle: string) =>
+  fontStyle.includes("Italic") ? "italic" : "normal"
 
 export const cleanName = (name: string) => {
   return (
@@ -41,6 +63,7 @@ export const createTypography = () =>
         letterSpacing: toUnitString(curr.letterSpacing),
         lineHeight: toUnitString(curr.lineHeight),
         fontWeight: toFontWeight(curr.fontName.style),
+        fontStyle: toFontStyle(curr.fontName.style),
       }
       return all
     }, {})
