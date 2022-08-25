@@ -58,7 +58,7 @@ function Plugin() {
   useEffect(() => {
     const unsub = once<GeneratedStylesHandler>(
       "GENERATED_STYLES",
-      generatedStyles => {
+      (generatedStyles) => {
         setStyles(format(generatedStyles))
       }
     )
@@ -77,7 +77,7 @@ function Plugin() {
           highlight={function (code: string) {
             return highlight(code, languages.ts, "typescript")
           }}
-          onValueChange={str => setStyles(str)}
+          onValueChange={(str) => setStyles(str)}
           preClassName={styles.editor}
           textareaClassName={styles.editor}
           value={muiStyles}
