@@ -12,7 +12,7 @@ This includes color pallete objects as well as style and style type objets.
 The primary object for accessible use in code is `figmaTypography` which contains text styling attributes including font options and spacing.
 The other typography based objects ensure type checking on styling and conformity with `CSSProperties` as well as dictating typography to be included in MUI variants. 
 
-figmaPalette holds the coloring properties exported from the figma doc in rgba format along with their associated label. 
+`figmaPalette` holds the coloring properties exported from the figma doc in rgba format along with their associated label. 
 
 ### Pre-requisites
 
