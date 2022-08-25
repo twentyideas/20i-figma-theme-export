@@ -21,7 +21,7 @@ export const toFontWeight = (fontStyle: string) => {
       .replace("italic", "")
       .trim() || "regular"
 
-  const supportedFontWeights = {
+  const supportedFontWeights: Record<string, number> = {
     thin: 100,
     "extra light": 200,
     light: 300,
@@ -36,7 +36,7 @@ export const toFontWeight = (fontStyle: string) => {
     throw new Error(`Unsupported font weight: ${fontStyle}`)
   }
 
-  return (supportedFontWeights as Record<string, number>)[cleanFontWeight]
+  return supportedFontWeights[cleanFontWeight]
 }
 
 export const toFontStyle = (fontStyle: string) =>
