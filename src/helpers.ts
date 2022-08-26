@@ -27,7 +27,7 @@ export const toFontWeight = (fontStyle: string) => {
     light: 300,
     regular: 400,
     medium: 500,
-    semibold: 600,
+    "semi bold": 600,
     bold: 700,
     "extra bold": 800,
   }
