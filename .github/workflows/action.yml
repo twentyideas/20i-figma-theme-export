@@ -18,15 +18,10 @@ jobs:
           yarn install --frozen-lockfile
           CI=true yarn run build
 
-      - name: Commit & Push
-        uses: EndBug/add-and-commit@v9
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          add: 'build'
+          name: build
+          path: build/
 
-          # new_branch: test-new-branch
-
-
-          push: false
-          tag_push: '--force'
 
