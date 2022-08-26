@@ -19,8 +19,14 @@ jobs:
           CI=true yarn run build
 
       - name: Commit & Push
-        uses: Andro999b/push@v1.3
+        uses: EndBug/add-and-commit@v9
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: github-action
+          add: 'build'
+
+          # new_branch: test-new-branch
+
+
+          push: false
+          tag_push: '--force'
 
