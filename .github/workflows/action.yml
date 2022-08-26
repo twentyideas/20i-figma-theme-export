@@ -15,5 +15,5 @@ jobs:
 
       - name: Build 🔧 
         run: |
-          npm ci
-          CI=false npm run build
+          yarn install --frozen-lockfile
+          CI=false yarn run build
