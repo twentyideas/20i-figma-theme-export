@@ -18,9 +18,9 @@ jobs:
           yarn install --frozen-lockfile
           CI=true yarn run build
 
-      # - name: Commit & Push
-      #   uses: Andro999b/push@v1.3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     branch: github-action
+      - name: Commit & Push
+        uses: Andro999b/push@v1.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: github-action
 
