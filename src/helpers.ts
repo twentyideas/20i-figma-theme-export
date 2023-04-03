@@ -23,12 +23,15 @@ export const toFontWeight = (fontStyle: string) => {
 
   const supportedFontWeights: Record<string, number> = {
     thin: 100,
+    extralight: 200,
     "extra light": 200,
     light: 300,
     regular: 400,
     medium: 500,
+    semibold: 600,
     "semi bold": 600,
     bold: 700,
+    extrabold: 800,
     "extra bold": 800,
   }
 
